@@ -28,10 +28,10 @@ var newArray = [{
 
 Array.prototype.forEach2 = function(functionReturn) {
     if (typeof functionReturn === 'function') {
-        var arrayLength = this.length;
-
-        for (var i = 0; i < arrayLength; i++) {
-            functionReturn(this[i], i);
+        for (var index in this) {
+            if (this.hasOwnProperty(index)) {
+                functionReturn(this[index], index, this);
+            }
         }
     }
 };

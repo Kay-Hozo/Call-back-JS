@@ -30,29 +30,23 @@ var newArray = [{
 Array.prototype.every2 = function(itemCompare) {
     if (typeof itemCompare === 'function') {
         var statusCompare = false;
-        var arrayLength = this.length;
-        var count = 0;
 
-        for (var i = 0; i < arrayLength; i++) {
-            if (itemCompare(this[i], i)) {
-                ++count;
-            } else {
-                break;
-            }
+        for (var index in this) {
+            if (this.hasOwnProperty(index)) {
+                if (!itemCompare(this[index], index)) {
+                    return statusCompare;
+                }
+            };
         }
 
-        if (count === arrayLength) {
-            return statusCompare = true;
-        } else {
-            return statusCompare;
-        }
+        return statusCompare = true;
     }
 };
 
 var printArray = newArray.every2(function(target, index) {
     console.log(target);
     console.log(index);
-    return target.age > 0;
+    return target.age < 20;
 });
 
 console.log(printArray);

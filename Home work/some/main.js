@@ -29,30 +29,22 @@ var newArray = [{
 
 Array.prototype.some2 = function(itemCompare) {
     if (typeof itemCompare === 'function') {
-        var arrayLength = this.length;
-        var statusItem;
-        var count = 0;
-
-        for (var i = 0; i < arrayLength; i++) {
-            statusItem = itemCompare(this[i], i);
-            if (statusItem) {
-                count++;
-                break;
+        for (var index in this) {
+            if (this.hasOwnProperty(index)) {
+                if (itemCompare(this[index], index, this)) {
+                    return true;
+                }
             }
         }
 
-        if (count > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 };
 
-var printArray = newArray.some2(function(target, index) {
+var printArray = newArray.some2(function(target, index, originArray) {
     console.log(target);
     console.log(index);
-    return target.age > 0;
+    return target.age > 10;
 });
 
 console.log(printArray);

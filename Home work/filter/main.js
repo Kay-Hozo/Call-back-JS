@@ -33,16 +33,15 @@ var newArray = [{
 
 Array.prototype.filter2 = function(itemFilter) {
     if (typeof itemFilter === 'function') {
-        var arrayLength = this.length;
         var filterArray = [];
         var statusItem;
 
-        for (var i = 0; i < arrayLength; i++) {
-            statusItem = itemFilter(this[i], i);
-            if (statusItem) {
-                filterArray.push(this[i]);
-            } else {
-                continue;
+        for (var index in this) {
+            if (this.hasOwnProperty(index)) {
+                statusItem = itemFilter(this[index], index, this);
+                if (statusItem) {
+                    filterArray.push(this[index]);
+                };
             }
         }
 
@@ -50,7 +49,7 @@ Array.prototype.filter2 = function(itemFilter) {
     }
 };
 
-var printArray = newArray.filter2(function(target, index) {
+var printArray = newArray.filter2(function(target, index, originArray) {
     return target.age > 0;
 });
 
